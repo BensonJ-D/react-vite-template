@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Auth0ContextInterface } from '@auth0/auth0-react';
 import useAxios from './useAxios';
 
@@ -15,14 +15,14 @@ const useApi = () => {
       console.log('Error retrieving content', error.code);
     }).finally(() => console.log('All done getting'));
 
-  const getPageContent = async(uri: string, auth?: Auth0ContextInterface) => {
+  const getPageContent = async (uri: string, auth?: Auth0ContextInterface) => {
     if (auth) {
       return auth.getAccessTokenSilently({
         authorizationParams: {
           audience: 'sample//',
           scope: 'default:admin'
         }
-      }).then(async(token) => {
+      }).then(async (token) => {
         const headers = { Authorization: `Bearer ${token}` };
         return await getFn(uri, headers);
       });
@@ -32,7 +32,9 @@ const useApi = () => {
   };
 
   return {
-    getPageContent: (page: string) => useQuery(page, () => getPageContent(page), {
+    getPageContent: (page: string) => useQuery({
+      queryKey: [page],
+      queryFn: () => getPageContent(page),
       refetchOnWindowFocus: false
     })
   };

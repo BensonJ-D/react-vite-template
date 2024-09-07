@@ -1,6 +1,6 @@
 import type { GlobalProvider } from "@ladle/react";
 import Theme from '../src/themes';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
@@ -16,7 +16,7 @@ export const Provider: GlobalProvider = ({
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ThemeProvider theme={Theme.Light}>
-            {children}
+          {children}
         </ThemeProvider>
       </BrowserRouter>
     </QueryClientProvider>

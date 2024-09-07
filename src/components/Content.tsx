@@ -8,7 +8,7 @@ export const Content = () => {
 
   const [content, setContent] = useState<any>();
 
-  const { data } = getPageContent('coffee/hot');
+  const { data } = getPageContent('/coffee/hot');
 
   useEffect(() => {
     if (data) {
