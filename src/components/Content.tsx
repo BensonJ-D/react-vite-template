@@ -25,6 +25,8 @@ export const Content = () => {
         {content?.title}
         <br />
         {content2?.title}
+        <br />
+        Yet another coffee: {data && data[2]?.title}
       </ContentWrapper>
     </>
   );

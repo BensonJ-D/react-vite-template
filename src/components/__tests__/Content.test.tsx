@@ -25,7 +25,7 @@ test('should render api response', async () => {
       <Content />
     </TestQueryWrapper>);
 
-  const element = await screen.findByText('Mock title');
+  const element = await screen.findByText(/Mock title/);
   expect(element).toBeInTheDocument();
 
   apiMock.done();
