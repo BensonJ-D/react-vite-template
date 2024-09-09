@@ -1,6 +1,7 @@
 services:
   web:
     container_name: webapp-test
+    image: react-vite-template
     build:
       context: ../
       dockerfile: docker/Dockerfile
