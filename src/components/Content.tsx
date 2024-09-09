@@ -7,12 +7,14 @@ export const Content = () => {
   const { getPageContent } = useApi();
 
   const [content, setContent] = useState<any>();
+  const [content2, setContent2] = useState<any>();
 
   const { data } = getPageContent('/coffee/hot');
 
   useEffect(() => {
     if (data) {
       setContent(data[0]);
+      setContent2(data[1]);
     }
   }, [data]);
 
@@ -21,6 +23,8 @@ export const Content = () => {
       <CssBaseline/>
       <ContentWrapper>
         {content?.title}
+        <br />
+        {content2?.title}
       </ContentWrapper>
     </>
   );
