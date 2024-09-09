@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@ladle/react/typings-for-build/app/exports';
+import { Story } from '@ladle/react';
 import { Content } from './Content';
 
 export const TestContent: Story = () => <Content />;

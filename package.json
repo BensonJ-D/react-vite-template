@@ -5,7 +5,6 @@
   "type": "module",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
-    "@babel/preset-typescript": "^7.24.7",
     "@emotion/css": "^11.13.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -28,10 +27,6 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.4",
-    "@babel/preset-react": "^7.24.7",
-    "@babel/register": "^7.24.6",
     "@ladle/react": "^4.1.1",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
@@ -51,11 +46,13 @@
   },
   "scripts": {
     "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "precommit": "npm-run-all --parallel test lint",
     "lint": "eslint",
     "lint-fix-all": "eslint \"src/**\" --fix",
-    "test": "vitest src",
-    "test:watch": "npm run test -- --watch"
+    "test": "vitest src --run",
+    "test:watch": "vitest src"
   },
   "pre-commit": [
     "precommit"

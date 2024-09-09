@@ -1,24 +1,54 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
-        "baseUrl": "src/",
-        "lib": ["es6", "dom"],
+        // Type checking
+        "strict": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es6",
-        "jsx": "react",
-        "allowJs": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "node",
-        "strict": true,
+
+        // Modules
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": false,
         "types": [
             "node",
-            "jest",
-            "vitest/globals"
-        ]
-    }
+            "vitest/globals",
+            "@testing-library/jest-dom"
+        ],
+
+        // Emit
+        "noEmit": true,
+
+        // JavaScript Support
+        "allowJs": false,
+
+        // Editor Support
+
+        // Interop Constraints
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": false,
+        "isolatedModules": true,
+
+        // Backwards Compatibility
+
+        // Language and Environment
+        "jsx": "react-jsx",
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "target": "ESNext",
+
+        // Compiler Diagnostics
+        // Projects
+        // Output Formatting
+        // Completeness
+        "skipLibCheck": true
+
+        // Watch Options
+    },
+    "include": [
+        "src",
+        ".ladle",
+        "test.setup.ts"
+    ]
+
 }

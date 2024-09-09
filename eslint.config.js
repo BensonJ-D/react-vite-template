@@ -4,8 +4,8 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 
 export default [
   {
-    files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}'],
-    ignores: ['**/*.css', '**/*.config.*'],
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
+    ignores: ['**/*.css'],
     plugins: {
       react: react,
       '@typescript-eslint': typescriptEslint
