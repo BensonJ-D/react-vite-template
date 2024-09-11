@@ -11,16 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      - name: Configure aws settings
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ secrets.AWS_REGION }}
+
       - name: AWS SSM Send-Command
         run: |
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}; export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }};
-          aws ssm send-command \
+          DOCKER_IMAGE="ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}"
+          DOCKER_IMAGE_LOWERCASE="${DOCKER_IMAGE,,}"
+          RESULT="$(aws ssm send-command \
           --instance-ids ${{ secrets.AWS_INSTANCE_ID }} \
-          --region ${{ secrets.AWS_REGION }}
-          --document-name "AWS-RunShellScript" \
-          --parameters "commands=['sudo systemctl stop docker-application', 'sudo docker pull ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest', 'sudo systemctl start docker-application']” \
+          --document-name AWS-RunShellScript \
+          --parameters "commands=['cd /home/ubuntu', './deploy.sh']" \
           --output text \
-          --query Command.CommandId | \
-          xargs aws ssm wait command-executed \
-          --command-id $1 \
+          --query Command.CommandId)"
+          echo "SSM_COMMAND_ID=$RESULT" >> $GITHUB_ENV
+      - name: Wait for SSM Command to finish
+        run: |
+          echo "Command ID: $SSM_COMMAND_ID"
+          aws ssm wait command-executed \
+          --command-id $SSM_COMMAND_ID \
           --instance-id ${{ secrets.AWS_INSTANCE_ID }}
+        env:
+          SSM_COMMAND_ID: ${{ env.SSM_COMMAND_ID }}
